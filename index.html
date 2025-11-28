@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Hero Slider</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- AOS Animation Library -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+
+  <!-- <link rel="stylesheet" href="gis.css">
+    -->
+  <style>
+     * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+
+    nav .logo img {
+      height: 54px;
+      width: 97px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      /* makes white for dark backgrounds */
+      transition: 0.3s ease;
+    }
+
+    nav .logo img:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 5px #00bfff);
+    }
+
+    nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: .3s;
+    }
+
+    nav ul li a:hover {
+      color: #00bfff;
+    }
+
+    /* Slider container */
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Slides */
+    .slides {
+      display: flex;
+      transition: transform 1s ease-in-out;
+      height: 100%;
+    }
+
+    .slide {
+      position: relative;
+      min-width: 100%;
+      height: 100%;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Overlay for text */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0 8%;
+      color: #fff;
+    }
+
+    .overlay-content {
+      max-width: 600px;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    .overlay-content h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .overlay-content p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      background: transparent;
+      border: 2px solid #fff;
+      border-radius: 6px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Navigation arrows */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      color: #fff;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 1000;
+      transition: .3s;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.7);
+      color: #000;
+    }
+
+    .prev {
+      left: 20px;
+    }
+
+    .next {
+      right: 20px;
+    }
+
+    /* Dots */
+    .dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+    }
+
+    .dot {
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      background: #bbb;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .dot.active {
+      background: #fff;
+    }
+
+    /* Responsive */
+    @media(max-width:768px) {
+      .overlay-content h1 {
+        font-size: 2rem;
+      }
+
+      .overlay-content p {
+        font-size: 1rem;
+      }
+    }
+
+     /* * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    } */
+
+    /* body {
+      background: #f5f7fa;
+      color: #222;
+      line-height: 1.6;
+      padding: 50px 10%;
+    } */
+
+    .ceo-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      overflow: hidden;
+      padding: 40px;
+      gap: 40px;
+      transition: all 0.3s ease;
+    }
+
+    .ceo-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    }
+
+    /* Image Section */
+    .ceo-photo {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+
+    .ceo-photo img {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 15px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+    }
+
+    .ceo-photo img:hover {
+      transform: scale(1.05);
+    }
+
+    .ceo-caption {
+      margin-top: 10px;
+      font-size: 1rem;
+      text-align: center;
+      color: #333;
+    }
+
+    .ceo-caption strong {
+      display: block;
+      font-size: 1.2rem;
+      color: #2a52be;
+    }
+
+    /* Text Section */
+    .ceo-content {
+      flex: 2;
+    }
+
+    .ceo-content h2 {
+      font-size: 2.2rem;
+      color: #000;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .ceo-content p {
+      color: #444;
+      margin-bottom: 15px;
+      font-size: 1.05rem;
+    }
+
+    .ceo-content ul {
+      list-style: none;
+      margin-top: 15px;
+    }
+
+    .ceo-content ul li {
+      margin-bottom: 10px;
+      padding-left: 22px;
+      position: relative;
+    }
+
+    .ceo-content ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #2a52be;
+      font-weight: bold;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .ceo-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+      }
+
+      .ceo-photo img {
+        max-width: 280px;
+      }
+
+      .ceo-content h2 {
+        font-size: 1.8rem;
+      }
+
+      .ceo-content p {
+        font-size: 1rem;
+      }
+    } 
+    /* body{
+    font-family:'Poppins',sans-serif;
+    background:#ffffff;
+    color:#0d1b2a;
+    overflow-x:hidden;
+  } */
+
+  /* HEADER */
+  header{
+    text-align:center;
+    padding:100px 20px 60px;
+    background:linear-gradient(to bottom right, #e8faff, #f7fff7);
+  }
+  header h1{
+    font-size:2.8rem;
+    font-weight:700;
+    letter-spacing:1px;
+    /* background:linear-gradient(90deg,#00bfa5,#007bff); */
+    -webkit-background-clip:text;
+    /* -webkit-text-fill-color:transparent; */
+  }
+  header p{
+    margin-top:15px;
+    font-size:1.1rem;
+    max-width:800px;
+    margin-left:auto;
+    margin-right:auto;
+    color:#445566;
+    line-height:1.7;
+  }
+
+  /* MAIN SECTION */
+  .journey-container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:30px;
+    padding:60px 8%;
+    position:relative;
+  }
+
+  .column{
+    background:linear-gradient(145deg,rgba(173, 255, 190, 0.4),rgba(173, 216, 255, 0.4));
+    border:1px solid rgba(0,0,0,0.05);
+    border-radius:20px;
+    box-shadow:0 4px 25px rgba(0,0,0,0.08);
+    padding:30px 25px;
+    width:300px;
+    transition:.4s ease;
+    backdrop-filter:blur(6px);
+  }
+
+  .column:hover{
+    transform:translateY(-8px);
+    box-shadow:0 8px 25px rgba(0,128,255,0.15);
+  }
+
+  .column h3{
+    color:rgb(42, 82, 190);;
+    font-size:1.2rem;
+    margin-bottom:20px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+  }
+
+  .step{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:20px;
+    transition:.3s;
+  }
+
+  .step img{
+    width:45px;
+    height:45px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 5px #00aaff33);
+  }
+  .step p{
+    font-size:0.95rem;
+    color:#1b2b3a;
+  }
+  .step:hover{
+    transform:translateX(5px);
+  }
+
+  /* Animated connection line */
+  .line{
+    position:absolute;
+    width:2px;
+    background:linear-gradient(to bottom,#00bfa5,#007bff);
+    left:50%;
+    top:0;
+    animation:flowDown 4s linear infinite;
+    opacity:0.4;
+  }
+
+  @keyframes flowDown{
+    0%{height:0; opacity:0.2;}
+    100%{height:100%; opacity:1;}
+  }
+
+  /* Small glowing pulse */
+  .pulse{
+    position:absolute;
+    top:-10px;
+    left:calc(50% - 5px);
+    width:10px; height:10px;
+    background:#00bfa5;
+    border-radius:50%;
+    animation:pulse 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse{
+    0%,100%{transform:scale(1); opacity:1;}
+    50%{transform:scale(1.8); opacity:0.4;}
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:992px){
+    .journey-container{flex-direction:column; align-items:center;}
+    .column{width:90%;}
+    .line{display:none;}
+    .pulse{display:none;}
+  }
+
+
+
+
+
+
+
+  body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #ffffff;
+  color: #222;
+}
+
+.why-choose-us {
+  text-align: center;
+  padding: 80px 10%;
+  background: #f7fafb;
+}
+
+.why-choose-us h2 {
+  font-size: 2.2rem;
+  margin-bottom: 50px;
+  color: #0b3954;
+}
+
+.why-choose-us h2 span {
+  color: #00bfa5;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.text-column {
+  flex: 1;
+  min-width: 300px;
+}
+
+.text-column .box {
+  background: #e7f9f8;
+  border-left: 5px solid #00bfa5;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.text-column .box:hover {
+  transform: translateY(-5px);
+  background: #dff3ff;
+  border-left-color: #0b3954;
+}
+
+.text-column i {
+  font-size: 30px;
+  color: #0b3954;
+  margin-bottom: 10px;
+}
+
+.text-column h3 {
+  margin: 5px 0;
+  font-size: 1.2rem;
+  color: #0b3954;
+}
+
+.text-column p {
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.image-column {
+  flex: 1;
+  min-width: 300px;
+}
+
+.image-column img {
+  width: 100%;
+  max-width: 380px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .image-column img {
+    max-width: 280px;
+  }
+}
+
+
+
+
+ .sn {
+      padding: 80px 10%;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #004d61;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: "";
+      position: absolute;
+      width: 70px;
+      height: 4px;
+      background: linear-gradient(90deg, #00bcd4, #4caf50);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    p.subtitle {
+      font-size: 1.1rem;
+      color: #555;
+      max-width: 700px;
+      margin: 15px auto 60px;
+      line-height: 1.7;
+    }
+
+    .capabilities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, rgba(0, 188, 212, 0.08), rgba(76, 175, 80, 0.08));
+      border-radius: 15px;
+      padding: 30px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      background: linear-gradient(135deg, rgba(0, 188, 212, 0.15), rgba(76, 175, 80, 0.15));
+      box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+    }
+
+    .icon {
+      font-size: 2.5rem;
+      color: #00796b;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+
+    .card:hover .icon {
+      color: #00bcd4;
+      transform: scale(1.2);
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      color: #003c47;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .card:nth-child(odd) { animation: float 4s ease-in-out infinite; }
+    .card:nth-child(even) { animation: float 5s ease-in-out infinite; }
+
+    @media (max-width: 768px) {
+      h2 { font-size: 2rem; }
+      p.subtitle { font-size: 1rem; }
+      .card { padding: 25px 15px; }
+    }
+
+
+
+
+    .stats {
+      background: rgb(14, 11, 43);
+      color: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 60px 5%;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .stat-box h3 {
+      font-size: 2.5rem;
+      color: #00bfff;
+      margin-bottom: 10px;
+    }
+
+    .stat-box p {
+      font-size: 1.1rem;
+      color: #ddd;
+    }
+
+
+    .gis-section {
+      padding: 80px 20px;
+      text-align: center;
+    }
+    .gis-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #00796b;
+      margin-bottom: 10px;
+    }
+    .gis-subtitle {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 50px;
+    }
+    .gis-box {
+      background: #fff;
+      border-radius: 15px;
+      padding: 30px 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      height: 100%;
+    }
+    .gis-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 121, 107, 0.2);
+    }
+    .gis-icon {
+      font-size: 50px;
+      color: #00796b;
+      margin-bottom: 20px;
+    }
+    .gis-heading {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #00796b;
+      margin-bottom: 10px;
+    }
+    .gis-text {
+      font-size: 1rem;
+      color: #555;
+    }
+    @media (max-width: 768px) {
+      .gis-title {
+        font-size: 2rem;
+      }
+    }
+
+
+     .partner-section {
+      padding: 50px 20px;
+      text-align: center;
+      /* background: linear-gradient(to right, #00c6ff, #0072ff); */
+      color: white;
+    }
+
+    .partner-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    .partner-slider {
+      display: flex;
+      gap: 40px;
+      overflow: hidden;
+      white-space: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      position: relative;
+    }
+
+    .partner-slider img {
+      width: 150px;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .partner-slider img:hover {
+      transform: scale(1.15);
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .slider-track {
+      display: flex;
+      gap: 40px;
+      animation: scroll 25s linear infinite;
+    }
+
+    .partner-slider:hover .slider-track {
+      animation-play-state: paused;
+    }
+
+    @media (max-width: 768px) {
+      .partner-slider img {
+        width: 100px;
+      }
+    }
+
+
+    .clients-section {
+      text-align: center;
+      padding: 50px 20px;
+      background: #f5f6fa;
+    }
+
+    .clients-section h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 40px;
+      color: #222;
+    }
+
+    .clients-logos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 40px;
+      justify-items: center;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .clients-logos img {
+      max-width: 150px;
+      max-height: 60px;
+      object-fit: contain;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: white;
+      padding: 10px 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .clients-logos img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    @media (max-width: 600px) {
+      .clients-section h2 {
+        font-size: 1.8rem;
+      }
+      .clients-logos img {
+        max-width: 120px;
+        padding: 8px 15px;
+      }
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      padding: 60px 10%;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .left-section {
+      flex: 1 1 300px;
+    }
+
+    .left-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .left-section p {
+      line-height: 1.6;
+      color: #dcdcdc;
+      max-width: 400px;
+    }
+
+    .right-section {
+      flex: 1 1 300px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    }
+
+    .right-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .right-section p {
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      color: #bfbfbf;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border: none;
+      outline: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 0.95rem;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #bfbfbf;
+    }
+
+    textarea {
+      resize: none;
+      height: 100px;
+    }
+
+    button {
+      padding: 12px;
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #fff;
+      color: #0a0f2c;
+    }
+
+    footer {
+      background: #05081a;
+      padding: 30px 10%;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: auto;
+    }
+
+    .footer-column {
+      flex: 1 1 200px;
+    }
+
+    .footer-column h4 {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: #bfbfbf;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .footer-column ul li:hover {
+      color: #fff;
+    }
+
+    .copyright {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+      background: #040615;
+      color: #888;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        padding: 40px 8%;
+      }
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">
+      <img src="logos.png" alt="Prodevans Logo">
+    </div>
+
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Company</a></li>
+      <li><a href="#">Insights</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Slider -->
+  <section class="slider">
+    <div class="slides">
+      <div class="slide">
+        <img src="global.png" alt="Slide 1">
+        <div class="overlay">
+          <div class="overlay-content">
+            <h1 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;">Mapping the World with Intelligence</h1>
+            <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Geographic Information Systems (GIS) integrate data, technology, and visualization to help understand
+              spatial relationships and patterns across the globe.</p>
+            <button class="btn">Our Services</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <img src="global3.png" alt="Slide 2">
+        <div class="overlay">
+          <div class="overlay-content">
+            <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">From Real World to Digital Insight</h1>
+            <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">GIS captures real-world data through satellites, sensors, and surveys — transforming it into actionable
+              digital insights for smarter decision-making.</p>
+            <button class="btn">Discover More</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="slide">
+        <img src="global4.png" alt="Slide 3">
+        <div class="overlay">
+          <div class="overlay-content">
+            <h1>Transforming Raw Data into Knowledge</h1>
+            <p>GIS models complex geographical data to reveal trends, risks, and opportunities, empowering organizations with deep spatial understanding.</p>
+            <button class="btn">Explore</button>
+          </div>
+        </div>
+      </div> -->
+      <div class="slide">
+        <img src="global6.png" alt="Slide 3">
+        <div class="overlay">
+          <div class="overlay-content">
+            <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Powering Industries with Location Intelligence</h1>
+            <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">From urban planning to disaster management, GIS supports sectors like agriculture, transport, and energy
+              with precise geospatial analysis.</p>
+            <button class="btn">Explore</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <button class="nav-btn prev">&#10094;</button>
+    <button class="nav-btn next">&#10095;</button>
+
+    <!-- Dots -->
+    <div class="dots"></div>
+  </section>
+  <section class="ceo-section">
+    <div class="ceo-photo">
+      <img src="subhakant.jpeg" alt="CEO Photo">
+      <div class="ceo-caption">
+        <strong>SubhaKant Sahu</strong>
+        Student, Computer Science ,BPUT
+      </div>
+    </div>
+
+    <div class="ceo-content">
+      <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 40px;">Transforming Data into <span style="color: rgb(42, 82, 190);">Geographic Intelligence</span></h2>
+      <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 19px;">
+       At BASSOFT, we believe that location intelligence is the foundation of the digital future. Our<span style="color: rgb(42, 82, 190); font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: bold;"> Geographic Information System (GIS)</span>  integrates spatial data, advanced analytics, and visualization tools to unlock the hidden patterns of our world.
+      </p>
+      <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 19px;">
+       From mapping ecosystems to predicting urban growth, GIS empowers industries to make data-driven decisions that enhance efficiency, sustainability, and innovation. To empower organizations with geospatial intelligence that drives smarter decision-making, enhances operational efficiency, and supports sustainable growth globally.
+      </p>
+      <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 19px;">Our mission is to empower organizations and communities with intelligent geospatial solutions that transform raw location data into meaningful insights. By integrating advanced GIS technology, analytics, and visualization, we enable smarter decision-making, efficient resource management, and sustainable development across industries such as urban planning, environment, agriculture, and transportation.</p>
+      <!-- <ul>
+        <li><b>CBDC as a Service</b> – End-to-end CBDC integration with secure wallets and compliance support.</li>
+        <li><b>ZTrust</b> – A Zero-Trust Security Model ensuring adaptive authentication and monitoring.</li>
+        <li><b>LiveStreamIO</b> – Real-time data analysis for secure, intelligent business decisions.</li>
+      </ul> -->
+    </div>
+  </section>
+  <header>
+  <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 40px;">We Accelerate Your <span style="color: rgb(42, 82, 190);">Geospatial Transformation Journey <span></span></h1>
+  <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 19px;">Empowering organizations to visualize, analyze, and optimize the world around them through modern GIS platforms, intelligent mapping, and seamless spatial data integration.</p>
+</header>
+
+<section class="journey-container">
+  <!-- <div class="pulse"></div> -->
+  <!-- <div class="line"></div>  -->
+
+  <div class="column">
+    <div style="text-align: center;"><i class="fas fa-archive" style="color:rgb(0, 121, 107);font-size:40px;"></i></div>
+    <h3 style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  ">Legacy Systems</h3>
+    <div class="step"><i class="fas fa-network-wired" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Monolithic Infrastructure</p></div>
+    <div class="step"><i class="fas fa-database" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Manual Data Operations</p></div>
+    <div class="step"><i class="fas fa-hourglass-half" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Slow Integration</p></div>
+    <div class="step"><i class="fas fa-eye-slash" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Limited Spatial Insights</p></div>
+  </div>
+
+  <div class="column">
+    <div style="text-align: center;"><i class="fas fa-cogs" style="color:rgb(0, 121, 107);font-size:40px;"></i></div>
+    <h3 style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Geospatial Innovation</h3>
+    <div class="step"><i class="fas fa-cloud" style="color:rgb(0, 121, 107); font-size:22px;"></i><p>Cloud-Native GIS Platforms</p></div>
+    <div class="step">  <i class="fas fa-brain" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>AI-driven Spatial Analytics</p></div>
+    <div class="step"><i class="fas fa-bolt" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>IoT & Real-Time Mapping</p></div>
+    <div class="step"><i class="fas fa-shield-alt" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Secure, Automated Processing</p></div>
+  </div>
+
+  <div class="column">
+    <div style="text-align: center;"><i class="fas fa-rocket" style="color:rgb(0, 121, 107);font-size:40px;"></i></div>
+    <h3 style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Outcome</h3>
+    <div class="step"><i class="fas fa-chart-line" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Faster Decision Making</p></div>
+    <div class="step"><i class="fas fa-chart-bar" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Improved Data Accuracy</p></div>
+    <div class="step"><i class="fas fa-map-marked-alt" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Optimized Spatial Strategy</p></div>
+    <div class="step"><i class="fas fa-users" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Empowered Digital Ecosystem</p></div>
+  </div>
+  <div class="column">
+    <div style="text-align: center;"><i class="fas fa-network-wired" style="color:rgb(0, 121, 107);font-size:40px;"></i></div>
+    <h3 style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  ">Automating Insight Generation</h3>
+    <div class="step"><i class="fas fa-cogs" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Automated Data Collection</p></div>
+    <div class="step"><i class="fas fa-robot" style="color: rgb(0, 121, 107);font-size:22px;"></i><p>AI-Powered Analysis</p></div>
+    <div class="step"><i class="fas fa-sync-alt" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Real-Time Updates</p></div>
+    <div class="step"><i class="fas fa-chart-pie" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Dynamic Visualization</p></div>
+  </div>
+  <div class="column">
+    <div style="text-align: center;"><i class="fas fa-globe" style="color:rgb(0, 121, 107);font-size:40px;"></i></div>
+    <h3 style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  ">Global Reach</h3>
+    <div class="step"><i class="fas fa-map" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Worldwide Data Integration</p></div>
+    <div class="step"><i class="fas fa-users" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Collaborative Platforms</p></div>
+    <div class="step"><i class="fas fa-shipping-fast" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Scalable Solutions</p></div>
+    <div class="step"><i class="fas fa-headset" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>24/7 Support</p></div>
+
+  </div>
+  <div class="column">
+    <div style=" text-align: center;"><i class="fas fa-handshake" style="color:rgb(0, 121, 107);font-size:40px;"></i></div>
+    <h3 style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  ">Partnerships</h3>
+    <div class="step"><i class="fas fa-user-friends" style="color:rgb(0, 121, 107);font-size:22px;"></i><p  >Industry Collaborations</p></div>
+    <div class="step"><i class="fas fa-hand-holding-usd" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Joint Ventures</p></div>
+    <div class="step"><i class="fas fa-lightbulb" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Innovation Labs</p></div>
+    <div class="step"><i class="fas fa-award" style="color:rgb(0, 121, 107);font-size:22px;"></i><p>Recognition Programs</p></div>
+
+
+  </div>
+</section>
+<section class="why-choose-us">
+    <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 40px;" data-aos="fade-down">Why Partner <span>With Us?</span></h2>
+
+    <div class="content">
+      <div class="text-column left" data-aos="fade-right">
+        <div class="box">
+          <i class="fas fa-globe"></i>
+          <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 19px;">Comprehensive GIS Expertise</h3>
+          <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 15px;">We combine deep domain knowledge with modern GIS technologies to deliver powerful geospatial solutions tailored to your unique business challenges.</p>
+        </div>
+
+        <div class="box">
+          <i class="fas fa-cogs"></i>
+          <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 19px;">Bespoke Geospatial Solutions</h3>
+          <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 15px;">Custom-built applications and analytics powered by cloud and AI — ensuring scalable, innovative, and future-ready GIS platforms.</p>
+        </div>
+      </div>
+
+      <div class="image-column" data-aos="zoom-in">
+        <img src="remove.png" alt="GIS Illustration">
+      </div>
+
+      <div class="text-column right" data-aos="fade-left">
+        <div class="box">
+          <i class="fas fa-map-marked-alt"></i>
+          <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 19px;">Tailored Spatial Strategies</h3>
+          <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 15px;">We craft solutions that align spatial data with your core business goals, integrating maps, analytics, and intelligence seamlessly.</p>
+        </div>
+
+        <div class="box">
+          <i class="fas fa-headset"></i>
+          <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 19px;">End-to-End Support</h3>
+          <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 19px;">From design to deployment and continuous optimization, our team ensures smooth, reliable, and evolving GIS operations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="sn" id="gis-capabilities">
+    <!-- <h2>Our GIS Capabilities</h2> -->
+     <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size: 40px;" data-aos="fade-down">Our GIS <span style="color: rgb(0, 191, 165);">Capabilities</span></h2>
+
+    <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" class="subtitle ">
+      Harnessing the power of location intelligence, we provide innovative GIS solutions that help organizations visualize, analyze, and act on spatial data for smarter decision-making.
+    </p>
+
+    <div class="capabilities">
+      <div class="card">
+        <div class="icon"><i class="fas fa-globe-asia"></i></div>
+        <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Spatial Data Management</h3>
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Efficiently collect, process, and organize geospatial datasets to enable seamless access and insights.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><i class="fas fa-layer-group"></i></div>
+        <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Geospatial Analysis</h3>
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Extract valuable intelligence from spatial patterns, trends, and relationships through advanced GIS tools.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><i class="fas fa-map-marked-alt"></i></div>
+        <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Mapping & Visualization</h3>
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Create interactive maps and dashboards that communicate complex spatial data in a simple, visual way.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><i class="fas fa-brain"></i></div>
+        <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">AI-driven Spatial Insights</h3>
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Integrate AI and machine learning to automate spatial analysis and predictive mapping for real-time decisions.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><i class="fas fa-cloud"></i></div>
+        <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Cloud GIS Integration</h3>
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Seamlessly deploy GIS applications on the cloud for scalability, collaboration, and secure data management.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon"><i class="fas fa-database"></i></div>
+        <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Data Interoperability</h3>
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Connect and integrate data across diverse systems, ensuring consistent and accurate spatial intelligence.</p>
+      </div>
+    </div>
+  </section>
+  <section class="stats">
+    <div class="stat-box">
+      <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">50+</h3>
+      <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">GIS Projects Completed</p>
+    </div>
+    <div class="stat-box">
+      <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">10+</h3>
+      <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Industries Served</p>
+    </div>
+    <div class="stat-box">
+      <h3 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">100%</h3>
+      <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Client Satisfaction</p>
+    </div>
+  </section>
+
+
+   <section class="gis-section">
+    <h2 class="gis-title" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; color: rgb(0, 77, 97);">How Our <span style="color: rgb(0, 191, 165);">GIS Solution Works</span></h2>
+    <p class="gis-subtitle">Smart. Accurate. Real-time. Turning location data into powerful decisions 🚀</p>
+
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="gis-box h-100">
+            <div class="gis-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <h3 class="gis-heading" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color: rgb(0, 77, 97);">1. Data Collection & Input</h3>
+            <p class="gis-text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+              <!-- We collect spatial and non-spatial data from GPS, satellite imagery, and field surveys — 
+              ensuring accurate and real-time location information.  -->
+              In this stage, various types of spatial and non-spatial data are collected from multiple sources such as GPS devices, satellite imagery, drone surveys, and ground-based sensors. This data may include coordinates, location attributes, environmental information, and field survey details. The collected information is then carefully verified, formatted, and entered into the GIS database to ensure accuracy and consistency. Reliable data input forms the foundation for all future mapping, analysis, and decision-making processes.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="gis-box h-100">
+            <div class="gis-icon"><i class="fas fa-cogs"></i></div>
+            <h3 class="gis-heading" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color: rgb(0, 77, 97);">2. Data Processing & Analysis</h3>
+            <p class="gis-text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+              <!-- Using GIS tools, we clean, validate, and analyze data with techniques like buffering, overlay, 
+              and spatial queries for smarter decision-making. -->
+              The collected data is transformed into meaningful information. Raw datasets are cleaned, structured, and processed to remove errors or inconsistencies. Advanced analytical tools and techniques are applied to identify patterns, relationships, and trends. This helps in generating accurate insights that support better decision-making and planning.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="gis-box h-100">
+            <div class="gis-icon"><i class="fas fa-chart-line"></i></div>
+            <h3 class="gis-heading" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color: rgb(0, 77, 97);">3. Visualization & Insights</h3>
+            <p class="gis-text" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+              <!-- Data is visualized on interactive maps and dashboards, giving users real-time insights 
+              and supporting accurate planning and operations. -->
+              The processed data is visualized through maps, charts, and dashboards. Interactive mapping tools allow users to explore spatial relationships and patterns visually. This stage enables stakeholders to gain insights into geographic trends, make informed decisions, and communicate findings effectively. The visualizations can be customized to meet specific user needs and support various applications such as urban planning, environmental management, and resource allocation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="partner-section">
+    <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Meet Our <span style="color: rgb(0, 191, 165);">Trusted Partners</span></h2>
+    <div class="partner-slider">
+      <div class="slider-track">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Partner 1">
+        <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Partner 2"> -->
+        <img src="data:image/png;base64,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" alt="Partner 3">
+        <img src="data:image/png;base64,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" alt="Partner 4">
+        <img src="data:image/png;base64,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" alt="Partner 5">
+        <img src="data:image/png;base64,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" alt="Partner 6">
+        <!-- duplicate logos to create infinite effect -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Partner 1">
+        <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Partner 2"> -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Google_Logo.svg" alt="Partner 3">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Logo_of_IBM.svg" alt="Partner 4">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Accenture_logo.svg" alt="Partner 5">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Infosys_logo.svg" alt="Partner 6">
+      </div>
+    </div>
+  </section>
+  
+   <section class="clients-section">
+    <h2>Our Clients</h2>
+    <div class="clients-logos">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Red_Hat_logo.svg" alt="Red Hat">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Bosch-logotype.svg" alt="Bosch">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Digit_Insurance_logo.svg" alt="Digit">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Axis_Cades_logo.png" alt="Axis Cades">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Intellect_logo.png" alt="Intellect">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/HDFC_Bank_Logo.svg" alt="HDFC Bank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Exide_Life_Insurance_logo.png" alt="Exide Life">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/EXL_Service_logo.svg" alt="EXL">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Aditya_Birla_Group_logo.svg" alt="Aditya Birla">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Accenture_logo.svg" alt="Accenture">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg" alt="Dell">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/68/RBL_Bank_Logo.png" alt="RBL Bank">
+    </div>
+  </section>
+  <section class="container" style="background: linear-gradient(135deg, #0a0f2c, #0d1b4c);">
+    <div class="left-section">
+      <h2>Let’s Connect!</h2>
+      <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif";>
+        Ready to take the first step towards a digital future? Contact us today to
+        schedule a consultation. Our team is eager to understand your unique
+        challenges and goals, providing insights and solutions that will propel
+        your business forward.
+      </p>
+    </div>
+
+    <div class="right-section">
+      <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; color: #fff ; text-align: center;">Get In Touch</h2>
+      <p>Let us collaborate to create your digital future</p>
+      <form>
+        <input type="text" placeholder="First Name" required />
+        <input type="text" placeholder="Last Name" required />
+        <input type="email" placeholder="Email" required />
+        <input type="tel" placeholder="Enter your mobile number" required />
+        <textarea placeholder="Enter your message"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-column">
+      <h4>About</h4>
+      <ul>
+        <li>About Us</li>
+        <li>Blog</li>
+        <li>In Press</li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>Company</h4>
+      <ul>
+        <li>Career</li>
+        <li>Brochures</li>
+        <li>Events</li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>Support</h4>
+      <ul>
+        <li>Contact Us</li>
+        <li>Privacy Policy</li>
+        <li>Ticketing</li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>FAQ</h4>
+      <ul>
+        <li>Services</li>
+        <li>Products</li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="copyright">
+    &copy; 2025 Your Company Website. All Rights Reserved.
+  </div>
+
+  <!-- AOS Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  </script>
+
+
+  <script>
+    const slides = document.querySelector(".slides");
+    const slideItems = document.querySelectorAll(".slide");
+    const prevBtn = document.querySelector(".prev");
+    const nextBtn = document.querySelector(".next");
+    const dotsContainer = document.querySelector(".dots");
+
+    let index = 0;
+    const total = slideItems.length;
+
+    // Create dots
+    slideItems.forEach((_, i) => {
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      if (i === 0) dot.classList.add("active");
+      dot.dataset.index = i;
+      dotsContainer.appendChild(dot);
+    });
+    const dots = document.querySelectorAll(".dot");
+
+    function updateSlider() {
+      slides.style.transform = `translateX(${-index * 100}%)`;
+      dots.forEach(dot => dot.classList.remove("active"));
+      dots[index].classList.add("active");
+    }
+
+    function nextSlide() {
+      index = (index + 1) % total;
+      updateSlider();
+    }
+    function prevSlide() {
+      index = (index - 1 + total) % total;
+      updateSlider();
+    }
+
+    nextBtn.addEventListener("click", nextSlide);
+    prevBtn.addEventListener("click", prevSlide);
+
+    dots.forEach(dot => {
+      dot.addEventListener("click", () => {
+        index = parseInt(dot.dataset.index);
+        updateSlider();
+      });
+    });
+
+    // Auto-slide
+    setInterval(nextSlide, 7000);
+  </script>
+
+</body>
+
+</html>
